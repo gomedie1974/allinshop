@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Productos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background:#111; color:white; padding:30px; }
+    h1,h2 { text-align:center; margin-bottom:20px; }
+    .form-container { background:#1e1e1e; padding:20px; border-radius:8px; margin-bottom:30px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+    input, select { padding:5px; }
+    button { padding:5px 15px; border:none; border-radius:5px; background:gold; font-weight:bold; cursor:pointer; }
+    button:hover { opacity:0.8; }
+    .producto { display:flex; justify-content:space-between; background:#222; padding:10px 15px; border-radius:6px; margin-bottom:10px; }
+    .sin-stock { color:#c0392b; font-weight:bold; }
+    .stock-bajo { color:#e67e22; font-weight:bold; }
+  </style>
+</head>
+<body>
+
+<h1>Panel de Administración</h1>
+<button id="logoutBtn" style="background:#c0392b;">Cerrar sesión</button>
+
+<h2>Agregar producto</h2>
+<div class="form-container">
+  <input type="text" id="nombre" placeholder="Nombre" style="width:150px;">
+  <input type="number" id="precio" placeholder="Precio" style="width:100px;">
+  <input type="number" id="stock" placeholder="Stock" style="width:80px;">
+  <select id="categoriaSelect"><option value="">Seleccionar categoría</option></select>
+  <input type="text" id="nuevaCategoria" placeholder="Nueva categoría" style="width:150px;">
+  <input type="file" id="imagenFile" accept="image/*">
+  <button onclick="crearProducto()">Crear</button>
+</div>
+
+<h2>Lista de productos</h2>
+<div id="listaProductos"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, collection, getDocs, addDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCWbt9LEfEl1uMQvlWbXlcS-_jFvPK4Xk4",
+  authDomain: "allinshop-dc0b4.firebaseapp.com",
+  projectId: "allinshop-dc0b4",
+  storageBucket: "allinshop-dc0b4.firebasestorage.app",
+  messagingSenderId: "54718990341",
+  appId: "1:54718990341:web:9f15abb7c7cef1cd53f46c",
+  measurementId: "G-1HRTRY7KVL"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const storage = getStorage(app);
+const auth = getAuth(app);
+
+const lista = document.getElementById("listaProductos");
+const categoriaSelect = document.getElementById("categoriaSelect");
+
+// 🔐 Login check
+onAuthStateChanged(auth, user => {
+  if(!user) window.location.href="login.html";
+  else {
+    cargarCategoriasDropdown();
+    cargarProductos();
+  }
+});
+
+document.getElementById("logoutBtn").addEventListener("click", async ()=>{
+  await signOut(auth);
+  window.location.href="login.html";
+});
+
+// 🔥 Cargar categorías (todas, aunque sin stock)
+async function cargarCategoriasDropdown(){
+  categoriaSelect.innerHTML = '<option value="">Seleccionar categoría</option>';
+  const snapshot = await getDocs(collection(db,"bebidas"));
+  const categoriasUnicas = new Set();
+  snapshot.forEach(docSnap => {
+    const data = docSnap.data();
+    if(data.categoria) categoriasUnicas.add(data.categoria.trim());
+  });
+  Array.from(categoriasUnicas).sort().forEach(cat=>{
+    const option = document.createElement("option");
+    option.value = cat;
+    option.textContent = cat;
+    categoriaSelect.appendChild(option);
+  });
+}
+
+// 🔥 Cargar productos
+async function cargarProductos(categoria=null){
+  lista.innerHTML="";
+  const snapshot = await getDocs(collection(db,"bebidas"));
+  snapshot.forEach(docSnap=>{
+    const data = docSnap.data();
+    const id = docSnap.id;
+    if(categoria && data.categoria!==categoria) return;
+
+    const div = document.createElement("div");
+    div.classList.add("producto");
+    let claseStock="";
+    if(data.stock===0) claseStock="sin-stock";
+    else if(data.stock<=3) claseStock="stock-bajo";
+
+    div.innerHTML=`
+      <div>
+        <strong>${data.nombre}</strong><br>
+        <span class="${claseStock}">Stock: ${data.stock}</span><br>
+        <small>Categoría: ${data.categoria}</small>
+      </div>
+      <div>
+        <input type="number" min="0" value="${data.stock}" id="input-${id}">
+        <button onclick="actualizarStock('${id}')">Actualizar</button>
+      </div>
+    `;
+    lista.appendChild(div);
+  });
+}
+
+// 🔥 Actualizar stock
+window.actualizarStock = async function(id){
+  const nuevo = parseInt(document.getElementById(`input-${id}`).value);
+  await updateDoc(doc(db,"bebidas",id),{ stock: nuevo });
+  cargarProductos(categoriaSelect.value);
+}
+
+// 🔥 Crear producto con imagen
+window.crearProducto = async function(){
+  const nombre = document.getElementById("nombre").value;
+  const precio = parseFloat(document.getElementById("precio").value);
+  const stock = parseInt(document.getElementById("stock").value);
+  const categoria = document.getElementById("nuevaCategoria").value.trim() || categoriaSelect.value;
+  const file = document.getElementById("imagenFile").files[0];
+
+  if(!nombre || isNaN(precio) || isNaN(stock) || !categoria || !file){
+    alert("Completa todos los campos");
+    return;
+  }
+
+  const storageRef = ref(storage, `img/${file.name}`);
+  await uploadBytes(storageRef, file);
+  const urlImagen = await getDownloadURL(storageRef);
+
+  await addDoc(collection(db,"bebidas"),{ nombre, precio, stock, categoria, imagen: urlImagen });
+
+  document.getElementById("nombre").value="";
+  document.getElementById("precio").value="";
+  document.getElementById("stock").value="";
+  document.getElementById("nuevaCategoria").value="";
+  document.getElementById("imagenFile").value="";
+
+  await cargarCategoriasDropdown();
+  cargarProductos();
+}
+
+// Filtrar por categoría
+categoriaSelect.addEventListener("change",()=>{
+  cargarProductos(categoriaSelect.value || null);
+});
+</script>
+</body>
+</html>

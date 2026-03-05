@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background:#111; color:white; display:flex; justify-content:center; align-items:center; height:100vh; }
+    .login-box { background:#1e1e1e; padding:30px; border-radius:10px; width:300px; text-align:center; }
+    input { width:90%; padding:10px; margin:10px 0; border-radius:5px; border:none; }
+    button { padding:10px 20px; border:none; border-radius:5px; background:gold; font-weight:bold; cursor:pointer; }
+  </style>
+</head>
+<body>
+
+<div class="login-box">
+  <h2>Admin Login</h2>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Contraseña">
+  <button id="loginBtn">Entrar</button>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+// 🔐 Config Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyCWbt9LEfEl1uMQvlWbXlcS-_jFvPK4Xk4",
+  authDomain: "allinshop-dc0b4.firebaseapp.com",
+  projectId: "allinshop-dc0b4",
+  storageBucket: "allinshop-dc0b4.firebasestorage.app",
+  messagingSenderId: "54718990341",
+  appId: "1:54718990341:web:9f15abb7c7cef1cd53f46c",
+  measurementId: "G-1HRTRY7KVL"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    window.location.href = "admin.html";
+  } catch(e) {
+    alert("Error de login: " + e.message);
+  }
+});
+</script>
+
+</body>
+</html>
