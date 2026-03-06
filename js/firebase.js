@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: "allinshop-dc0b4.firebasestorage.app",
   messagingSenderId: "54718990341",
   appId: "1:54718990341:web:9f15abb7c7cef1cd53f46c",
-  measurementId: "G-1HRTRY7KVL"
+  measurementId: "G-1HRTRY7KVL" 
 };
 
 const app = initializeApp(firebaseConfig);

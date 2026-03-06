@@ -37,6 +37,7 @@ async function cargarBebidas(categoria = "all") {
           <img src="${bebida.imagen}" class="img-fluid">
           <div class="product-info">
             <h4>${bebida.nombre}</h4>
+            <h6>${bebida.descripcion}</h6>
             <p class="price">$${bebida.precio.toLocaleString()}</p>
 
             ${bebida.stock === 0 
