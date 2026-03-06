@@ -31,24 +31,4 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 });
-
-/* ANIMACION AL FILTRAR */
-const filtros = document.querySelectorAll(".filtro-btn");
-
-filtros.forEach(btn => {
-  btn.addEventListener("click", () => {
-
-    filtros.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const categoria = btn.dataset.filter;
-
-    if (categoria === "all") {
-      renderBebidas(bebidas);
-    } else {
-      const filtradas = bebidas.filter(b => b.categoria === categoria);
-      renderBebidas(filtradas);
-    }
-
-  });
-});
+ 
