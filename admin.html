@@ -28,6 +28,7 @@
                 </div>
                 <input type="text" id="prod-id" class="form-control mb-2" placeholder="ID (ej: malbec-reserva)" required>
                 <input type="text" id="prod-nombre" class="form-control mb-2" placeholder="Nombre" required>
+                <input type="text" id="prod-descripcion" class="form-control mb-2" placeholder="Descripcion" required>
                 <input type="text" id="prod-img" class="form-control mb-2" placeholder="Ruta Imagen (/assets/...)" required>
                 <div class="row mb-2">
                     <div class="col"><input type="number" id="prod-precio" class="form-control" placeholder="Precio" required></div>
@@ -48,7 +49,22 @@
         <div class="col-md-6 offset-md-1 card p-4 shadow-sm bg-dark text-white">
             <h4>🚀 Carga Masiva (JSON)</h4>
             <p><small>Pega aquí un array de objetos para subir hasta 500 de una vez.</small></p>
-            <textarea id="json-masivo" class="form-control mb-3" rows="10" placeholder='[{"id":"vino-1", "nombre":"Vino X"...}]'></textarea>
+            <textarea id="json-masivo" class="form-control mb-3" rows="10" 
+            placeholder=
+            '[
+                {
+                    "id": "vodka-absolut",
+                    "nombre": "Vodka Absolut 750ml",
+                    "descripcion": "Botella 750ml",
+                    "precio": 18000,
+                    "stock": 12,
+                    "categoria": "blancas",
+                    "imagen": "/assets/img/absolut.png",
+                    "orden": 1,
+                    "destacado": "true",
+                    "activo": true
+                }
+            ]'></textarea>
             <button id="btn-batch" class="btn btn-warning w-100">Ejecutar Batch Write</button>
         </div>
     </div>

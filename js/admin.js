@@ -1,52 +1,77 @@
 import { db } from "./firebase.js";
-import { writeBatch, doc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+// Agregamos setDoc a los imports para el producto individual
+import { writeBatch, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 // === CONTROL DE ACCESO SIMPLE ===
-const CLAVE_CORRECTA = "rumyyoro"; // <-- CAMBIA ESTO POR TU CLAVE
+const CLAVE_CORRECTA = "rumyyoro"; 
 const password = prompt("Introduce la clave de administrador para acceder:");
 
 if (password === CLAVE_CORRECTA) {
-    // Si la clave es correcta, mostramos el contenido
     document.getElementById("admin-content").style.display = "block";
 } else {
-    // Si es incorrecta, avisamos y redirigimos al index
     alert("Acceso denegado. Clave incorrecta.");
     window.location.href = "index.html"; 
 }
-// ================================
 
-// ... AQUÍ SIGUE EL RESTO DE TU CÓDIGO (btnBatch.addEventListener, etc.) ...
-// Seleccionamos los elementos del HTML
+// === ELEMENTOS DEL DOM ===
 const btnBatch = document.getElementById("btn-batch");
 const jsonInput = document.getElementById("json-masivo");
 const colSelect = document.getElementById("col-select");
+const adminForm = document.getElementById("admin-form"); // El formulario individual
 
-// Esta función se activará SOLO cuando hagas click en el botón
+// --- LÓGICA 1: PRODUCTO INDIVIDUAL ---
+adminForm.addEventListener("submit", async (e) => {
+    e.preventDefault(); // Evita que la página se recargue
+    
+    const col = document.getElementById("col-select").value;
+    const id = document.getElementById("prod-id").value.trim().toLowerCase();
+
+    // Armamos el objeto tal cual lo tienes en Firebase
+    const nuevoProducto = {
+        activo: true,
+        nombre: document.getElementById("prod-nombre").value,
+        descripcion: document.getElementById("prod-descripcion").value,
+        imagen: document.getElementById("prod-img").value,
+        precio: Number(document.getElementById("prod-precio").value),
+        stock: Number(document.getElementById("prod-stock").value),
+        categoria: document.getElementById("prod-cat").value.toLowerCase(),
+        orden: Number(document.getElementById("prod-orden").value || 1),
+        destacado: document.getElementById("prod-destacado").checked ? "true" : "false"
+    };
+
+    try {
+        console.log("Guardando producto individual...");
+        // setDoc guarda un documento con un ID específico
+        await setDoc(doc(db, col, id), nuevoProducto);
+        alert("¡Producto individual guardado con éxito!");
+        adminForm.reset(); // Limpia el formulario
+    } catch (error) {
+        console.error("Error al guardar individual:", error);
+        alert("Error al guardar: " + error.message);
+    }
+});
+
+// --- LÓGICA 2: BATCH WRITE (CARGA MASIVA) ---
 btnBatch.addEventListener("click", async () => {
     const rawData = jsonInput.value.trim();
     const coleccionDestino = colSelect.value;
 
-    if (!rawData) {
-        return alert("¡El cuadro de texto está vacío! Pega un JSON válido.");
-    }
+    if (!rawData) return alert("¡El cuadro de texto está vacío!");
 
     try {
-        // 1. Convertimos el texto en un objeto real de JS
         const lista = JSON.parse(rawData);
         const batch = writeBatch(db);
         
-        console.log(`Iniciando carga de ${lista.length} productos en [${coleccionDestino}]...`);
+        console.log(`Iniciando batch para ${lista.length} productos...`);
 
-        // 2. Preparamos cada producto en el batch
         lista.forEach(item => {
-            // Si el item no tiene ID, generamos uno basado en el nombre
             const idDoc = item.id || item.nombre.toLowerCase().replace(/\s+/g, '-');
             const docRef = doc(db, coleccionDestino, idDoc);
             
             batch.set(docRef, {
                 activo: item.activo ?? true,
                 nombre: item.nombre,
-                descripcion: item.descripcion,
+                descripcion: item.descripcion || "",
                 precio: Number(item.precio),
                 stock: Number(item.stock),
                 imagen: item.imagen,
@@ -56,16 +81,13 @@ btnBatch.addEventListener("click", async () => {
             });
         });
 
-        // 3. Enviamos a Firebase
-        console.log("Enviando batch al servidor...");
         await batch.commit();
-
-        alert(`¡Éxito! Se subieron ${lista.length} productos a la colección ${coleccionDestino}`);
-        jsonInput.value = ""; // Limpiamos el cuadro después de subir
+        alert(`¡Éxito masivo! ${lista.length} productos subidos.`);
+        jsonInput.value = ""; 
 
     } catch (error) {
-        console.error("Error detallado:", error);
-        alert("Hubo un error. Revisa que el JSON esté bien escrito (comas, llaves, etc).");
+        console.error("Error detallado batch:", error);
+        alert("Error en el proceso masivo.");
     }
 });
 

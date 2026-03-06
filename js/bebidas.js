@@ -1,101 +1,133 @@
-// js/bebidas.js
-
 import { db } from "./firebase.js";
-import { collection, getDocs, query, where } 
-from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { 
+    collection, getDocs, query, where, orderBy, limit, startAfter, endBefore, limitToLast 
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const container = document.getElementById("bebidas-container");
 const filtros = document.querySelectorAll(".filtro-btn");
 
-// ===== TRAER PRODUCTOS =====
-async function cargarBebidas(categoria = "all") {
+// Variables de Paginación
+let lastVisible = null;   // Último doc de la página actual
+let firstVisible = null;  // Primer doc de la página actual
+let paginaActual = 1;
+const PAGE_SIZE = 6;
+let categoriaActual = "all";
 
-  container.innerHTML = "Cargando...";
+// Botones (Asegúrate de tener estos IDs en tu HTML)
+const btnNext = document.getElementById("btn-next");
+const btnPrev = document.getElementById("btn-prev");
 
-  let q;
+async function cargarBebidas(categoria = "all", direccion = "inicio") {
+    container.innerHTML = "Cargando...";
+    categoriaActual = categoria;
 
-  if (categoria === "all") {
-    q = query(collection(db, "bebidas"), where("activo", "==", true));
-  } else {
-    q = query(
-      collection(db, "bebidas"),
-      where("categoria", "==", categoria),
-      where("activo", "==", true)
-    );
-  }
+    let q;
+    const baseConstraints = [
+        collection(db, "bebidas"),
+        where("activo", "==", true),
+        orderBy("orden", "asc") // IMPORTANTE: Todos tus productos deben tener el campo 'orden'
+    ];
 
-  const querySnapshot = await getDocs(q);
+    if (categoria !== "all") {
+        baseConstraints.push(where("categoria", "==", categoria));
+    }
 
-  container.innerHTML = "";
+    // Lógica de navegación
+    if (direccion === "siguiente" && lastVisible) {
+        q = query(...baseConstraints, startAfter(lastVisible), limit(PAGE_SIZE));
+    } else if (direccion === "anterior" && firstVisible) {
+        q = query(...baseConstraints, endBefore(firstVisible), limitToLast(PAGE_SIZE));
+    } else {
+        // Carga inicial o reset de filtros
+        q = query(...baseConstraints, limit(PAGE_SIZE));
+        paginaActual = 1;
+    }
 
-  querySnapshot.forEach((doc) => {
-    const bebida = doc.data();
+    try {
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            container.innerHTML = "<p class='text-center'>No se encontraron más productos.</p>";
+            btnNext.style.display = "none";
+            return;
+        }
 
+        container.innerHTML = "";
+        
+        // Guardamos los límites para la próxima navegación
+        firstVisible = querySnapshot.docs[0];
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+        querySnapshot.forEach((doc) => {
+            const bebida = doc.data();
+            renderizarTarjeta(bebida);
+        });
+
+        // Control de visibilidad de botones
+        btnPrev.style.display = paginaActual > 1 ? "block" : "none";
+        // Si trajo menos de los pedidos, no hay más adelante
+        btnNext.style.display = querySnapshot.docs.length < PAGE_SIZE ? "none" : "block";
+
+    } catch (error) {
+        console.error("Error en Firestore:", error);
+        container.innerHTML = "Error al cargar productos. Revisa la consola.";
+        // TIP: Si ves un error de "Index", haz clic en el link que aparece en la consola.
+    }
+}
+
+function renderizarTarjeta(bebida) {
     container.innerHTML += `
       <div class="col-md-4 bebida-item">
         <div class="product-card">
           <img src="${bebida.imagen}" class="img-fluid">
           <div class="product-info">
             <h4>${bebida.nombre}</h4>
-            <h6>${bebida.descripcion}</h6>
-            <p class="price">$${bebida.precio.toLocaleString()}</p>
-
+            <h6>${bebida.descripcion || ""}</h6>
+            <p class="price">$${Number(bebida.precio).toLocaleString()}</p>
             ${bebida.stock === 0 
-            ? `<p class="sin-stock">Sin stock</p>
-                <button class="btn btn-secondary" disabled>
-                No disponible
-                </button>`
-            : `<button 
-                class="btn btn-gold whatsapp-btn"
-                data-nombre="${bebida.nombre}"
-                data-precio="${bebida.precio}">
-                Consultar
-                </button>`
+                ? `<p class="sin-stock">Sin stock</p><button class="btn btn-secondary" disabled>No disponible</button>`
+                : `<button class="btn btn-gold whatsapp-btn" data-nombre="${bebida.nombre}" data-precio="${bebida.precio}">Consultar</button>`
             }
           </div>
         </div>
-      </div>
-    `;
-  });
+      </div>`;
 }
+
+// ===== EVENTOS DE NAVEGACIÓN =====
+btnNext.addEventListener("click", () => {
+    paginaActual++;
+    cargarBebidas(categoriaActual, "siguiente");
+});
+
+btnPrev.addEventListener("click", () => {
+    if (paginaActual > 1) {
+        paginaActual--;
+        cargarBebidas(categoriaActual, "anterior");
+    }
+});
 
 // ===== FILTROS =====
 filtros.forEach(btn => {
-  btn.addEventListener("click", () => {
-
-    filtros.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    const categoria = btn.dataset.filter;
-    cargarBebidas(categoria);
-
-  });
+    btn.addEventListener("click", () => {
+        filtros.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        lastVisible = null;
+        firstVisible = null;
+        cargarBebidas(btn.dataset.filter);
+    });
 });
 
-// Cargar todo al iniciar
-cargarBebidas();
-
-// ===== WHATSAPP =====
-
-const numeroWhatsApp = "5491141685220"; // tu número en formato internacional
-
+// ===== WHATSAPP (Mantenemos tu lógica) =====
+const numeroWhatsApp = "5491141685220";
 document.addEventListener("click", function(e) {
-
-  if (e.target.classList.contains("whatsapp-btn")) {
-
-    const nombre = e.target.dataset.nombre;
-    const precio = e.target.dataset.precio;
-
-    const mensaje = `Hola Diego, quiero consultar por:
-
-Producto: ${nombre}
-Precio: $${Number(precio).toLocaleString()}
-
-¿Está disponible?`;
-
-    const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
-
-    window.open(url, "_blank");
-  }
-
+    if (e.target.classList.contains("whatsapp-btn")) {
+        const nombre = e.target.dataset.nombre;
+        const precio = e.target.dataset.precio;
+        const mensaje = `Hola Diego, quiero consultar por:\n\nProducto: ${nombre}\nPrecio: $${Number(precio).toLocaleString()}\n\n¿Está disponible?`;
+        const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, "_blank");
+    }
 });
+
+// Inicio
+cargarBebidas();

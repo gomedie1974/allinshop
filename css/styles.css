@@ -228,3 +228,81 @@ body {
   font-weight: 600;
   margin-bottom: 8px;
 }
+
+/* footer */
+/* FOOTER STYLES */
+.main-footer {
+    background-color: #0f0f0f; /* Negro profundo */
+    color: #ffffff;
+    padding: 60px 0 20px;
+    margin-top: 80px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.footer-logo span {
+    color: #d4af37; /* Dorado */
+}
+
+.main-footer h5 {
+    color: #d4af37;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+.footer-link {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #d4af37;
+}
+
+.footer-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 40px 0 20px;
+}
+
+.copyright {
+    font-size: 0.8rem;
+    color: #888;
+    margin-bottom: 5px;
+}
+
+.designer {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.designer a {
+    color: #d4af37;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.designer a:hover {
+    text-decoration: underline;
+}
+.map-container {
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.3); /* Un borde dorado muy sutil */
+    line-height: 0;
+}
+
+.map-container iframe {
+    transition: filter 0.5s ease;
+}
+
+/* Cuando el usuario pasa el mouse, el mapa recupera color */
+.map-container:hover iframe {
+    filter: grayscale(0) invert(0) opacity(1) !important;
+}

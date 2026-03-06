@@ -7,7 +7,7 @@
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 
@@ -28,12 +28,12 @@
       <div class="col-lg-6 hero-text">
         <h1>Elegancia en cada detalle</h1>
         <p>Descubrí fragancias y productos exclusivos seleccionados para quienes buscan distinción.</p>
-        <a href="#" class="btn btn-gold mt-4">Descubrir Colección</a>
+        <a href="#categories" class="btn btn-gold mt-4">Descubrir Colección</a>
       </div>
 
       <!-- IMAGEN PRODUCTO -->
       <div class="col-lg-6 text-center hero-image">
-        <img src="https://images.unsplash.com/photo-1585386959984-a41552231658" 
+        <img src="./assets/img/banner.jpg" 
              alt="Perfume Premium" 
              class="img-fluid perfume-img">
       </div>
@@ -42,36 +42,42 @@
   </div>
 </section>
 
-<section class="categories py-5">
+<section class="categories py-5" id="categories">
   <div class="container text-center">
     <h2 class="section-title mb-5">Nuestras Categorías</h2>
 
     <div class="row g-4">
 
+        <div class="col-md-4">
+            <div class="category-card">
+                <a href="perfumes.html" class="category-link">
+                    <img src="./assets/img/perfumes/fragancias.jpg" class="img-fluid" alt="Perfumes">
+                    <div class="category-overlay">
+                        <h3>Perfumes</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+
       <div class="col-md-4">
         <div class="category-card">
-          <img src="https://images.unsplash.com/photo-1595429035839-c99c298ffdde" class="img-fluid" alt="Perfumes">
-          <div class="category-overlay">
-            <h3>Perfumes</h3>
-          </div>
+            <a href="#">
+                <img src="./assets/img/belleza/belleza.jpg" class="img-fluid" alt="Belleza">
+                <div class="category-overlay">
+                    <h3>Belleza</h3>
+                </div>
+            </a>  
         </div>
       </div>
 
       <div class="col-md-4">
         <div class="category-card">
-          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348" class="img-fluid" alt="Belleza">
-          <div class="category-overlay">
-            <h3>Belleza</h3>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-        <div class="category-card">
-          <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092" class="img-fluid" alt="Bebidas">
-          <div class="category-overlay">
-            <h3>Bebidas</h3>
-          </div>
+           <a href="./bebidas.html">
+               <img src="./assets/img/bebidas/bebidas.jpg" class="img-fluid" alt="Bebidas">
+                <div class="category-overlay">
+                    <h3>Bebidas</h3>
+                </div>
+            </a>
         </div>
       </div>
 
@@ -88,14 +94,17 @@
 
       <div class="col-md-4">
         <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1585386959984-a41552231658" class="img-fluid" alt="Producto">
+          <img src="./assets/img/bebidas/robertolukacajamadera.png" class="img-fluid" alt="luka">
           <div class="product-info">
-            <h4>Dior Sauvage 100ml</h4>
-            <p class="price">$85.000</p>
+            <h4>Roberto Luka</h4>
+            <h6>Caja de madera</h6>
+            <h6>4 bot 750ml</h6>
+            <h6>Finca Sophenia</h6>
+            <p class="price">$240.000</p>
             <button 
                 class="btn btn-gold consultar-btn" 
-                data-producto="Dior Sauvage 100ml" 
-                data-precio="$85.000">
+                data-producto="Roberto Luka, caja de madera por 4 botellas de 750ml" 
+                data-precio="$240.000">
                 Consultar
             </button>
           </div>
@@ -104,14 +113,17 @@
 
       <div class="col-md-4">
         <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1585386959984-a41552231658" class="img-fluid" alt="Producto">
+          <img src="./assets/img/bebidas/aminga.png" class="img-fluid" alt="aminga">
           <div class="product-info">
-            <h4>Whisky Premium</h4>
-            <p class="price">$60.000</p>
+            <h4>Aminga</h4>
+            <h6>Caja x 6</h6>
+            <h6>bot 750ml</h6>
+            <h6>San Huberto</h6>
+            <p class="price">$137.500</p>
             <button 
                 class="btn btn-gold consultar-btn" 
-                data-producto="Dior Sauvage 100ml" 
-                data-precio="$85.000">
+                data-producto="Aminga, caja por 6 botellas de 750ml" 
+                data-precio="$137.500">
                 Consultar
             </button>
           </div>
@@ -120,14 +132,17 @@
 
       <div class="col-md-4">
         <div class="product-card">
-          <img src="https://images.unsplash.com/photo-1585386959984-a41552231658" class="img-fluid" alt="Producto">
+          <img src="./assets/img/bebidas/AchavalQuimeratinto.webp" class="img-fluid" alt="quimera">
           <div class="product-info">
-            <h4>Set Belleza Luxury</h4>
-            <p class="price">$45.000</p>
+            <h4>Quimera Tinto</h4>
+            <h6>Caja x 6</h6>
+            <h6>bot 750ml</h6>
+            <h6>Achaval Ferrer</h6>
+            <p class="price">$231.500</p>
             <button 
                 class="btn btn-gold consultar-btn" 
-                data-producto="Dior Sauvage 100ml" 
-                data-precio="$85.000">
+                data-producto="Quimera Tinto de Achaval Ferrer, caja por 6 botellas de 750ml" 
+                data-precio="$231.500">
                 Consultar
             </button>
           </div>
@@ -138,9 +153,13 @@
   </div>
 </section>
 
+  <div id="footer-container"></div>
+
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/main.js"></script>
+   <script src="./js/footer.js"></script>
 
 </body>
 </html>
