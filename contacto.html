@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | All In Shop</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<style>
+    .icon-box {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(212, 175, 55, 0.1);
+    color: #d4af37;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.contact-info-card {
+    border-top: 4px solid #d4af37; /* Detalle dorado arriba */
+}
+
+.social-links-contact i {
+    transition: color 0.3s;
+}
+
+.social-links-contact i:hover {
+    color: #d4af37;
+}
+.instagram-single {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 1px solid #d4af37; /* Borde dorado */
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.instagram-single i {
+    font-size: 1.2rem;
+    color: #d4af37;
+}
+
+.instagram-single:hover {
+    background-color: #d4af37;
+}
+
+.instagram-single:hover i, 
+.instagram-single:hover span {
+    color: white !important;
+}
+</style>
+
+
+<body class="bg-light">
+
+    <div id="navbar-container"></div>
+    
+    <section class="py-5 mt-5">
+        <div class="container">
+            <div class="text-center mb-5 pt-5">
+                <h1 class="display-4 fw-bold">CONTACTO</h1>
+                <div class="deco-line" style="width: 50px; height: 2px; background: #d4af37; margin: 20px auto;"></div>
+                <p class="text-muted">Estamos para asesorarte en tu elección premium.</p>
+            </div>
+
+            <div class="row g-5">
+                <div class="col-md-5">
+                    <div class="contact-info-card p-4 shadow-sm bg-white h-100" style="border-radius: 15px;">
+                        <h3 class="mb-4 fw-bold">Información</h3>
+                        
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="icon-box me-3"><i class="bi bi-whatsapp"></i></div>
+                            <div>
+                                <p class="mb-0 small text-muted">WhatsApp</p>
+                                <a href="https://wa.me/5491141685220" class="text-dark fw-bold text-decoration-none">+54 9 11 4168-5220</a>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="icon-box me-3"><i class="bi bi-geo-alt"></i></div>
+                            <div>
+                                <p class="mb-0 small text-muted">Ubicación</p>
+                                <p class="mb-0 fw-bold">Buenos Aires, Argentina</p>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="icon-box me-3"><i class="bi bi-clock"></i></div>
+                            <div>
+                                <p class="mb-0 small text-muted">Horarios de Atención</p>
+                                <p class="mb-0 fw-bold">Lunes a Sábado: 10:00 a 13:00hs</p>
+                            </div>
+                        </div>
+
+                         <div class="mt-4">
+    <h5 class="fw-bold mb-3 text-uppercase small" style="letter-spacing: 2px;">Seguinos</h5>
+    <div class="social-links-contact">
+        <a href="TU_LINK_DE_INSTAGRAM" target="_blank" class="instagram-single">
+            <i class="bi bi-instagram"></i>
+            <span class="ms-2 fw-light text-dark">@allinshopweb</span> </a>
+    </div>
+</div>
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="map-wrapper shadow-sm" style="border-radius: 15px; overflow: hidden; height: 100%; min-height: 400px;">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105121.06013317071!2d-58.520442!3d-34.578082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb59c771eb933%3A0x6b31480c5d10a5!2sBuenos%20Aires%2C%20Argentina!5e0!3m2!1ses!2sar!4v1700000000000!5m2!1ses!2sar" 
+                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/footer.js"></script>
+</body>
+</html>

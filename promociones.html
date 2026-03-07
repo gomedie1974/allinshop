@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promociones Exclusivas | All In Shop</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+
+    <style>
+        /* Estilos de Impacto para Promociones */
+        .promo-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+
+        .promo-hero h1 span { color: #d4af37; }
+
+        .promo-card {
+            background: white;
+            border-radius: 0px; /* Estilo editorial, puntas rectas */
+            overflow: hidden;
+            border: none;
+            margin-bottom: 80px;
+        }
+
+        .promo-img-wrapper {
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .promo-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s ease;
+        }
+
+        .promo-card:hover .promo-img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .promo-content {
+            padding: 60px;
+        }
+
+        .promo-badge {
+            color: #d4af37;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .promo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .promo-price {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #888;
+            margin-bottom: 30px;
+        }
+
+        .promo-price b { color: #000; font-weight: 600; }
+
+        .btn-black {
+            background: #000;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: 0.4s;
+        }
+
+        .btn-black:hover {
+            background: #d4af37;
+            color: #000;
+        }
+
+        /* Línea decorativa vertical */
+        .deco-line {
+            width: 1px;
+            height: 50px;
+            background: #d4af37;
+            margin: 0 auto 30px;
+        }
+    </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <div id="navbar-container"></div>
+
+    <section class="promo-hero">
+        <div data-aos="fade-up">
+            <div class="deco-line"></div>
+            <h1 class="display-2 fw-bold">SELECCIÓN <span>PROMO</span></h1>
+            <p class="lead">Piezas únicas. Precios por tiempo limitado.</p>
+        </div>
+    </section>
+
+    <section class="py-5 mt-5">
+        <div class="container">
+            
+            <div class="promo-card row g-0 shadow-sm" data-aos="fade-up">
+                <div class="col-md-7 promo-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b0ca7df?auto=format&fit=crop&w=800&q=80" alt="Vinos">
+                </div>
+                <div class="col-md-5 d-flex align-items-center">
+                    <div class="promo-content">
+                        <span class="promo-badge">The Wine List</span>
+                        <h2 class="promo-title">Malbec Reserva Especial</h2>
+                        <p class="text-muted mb-4">Llevando la caja de 6 unidades, el envío es sin cargo y te regalamos un descorchador profesional.</p>
+                        <p class="promo-price">Desde <b>$12.500</b></p>
+                        <button class="btn btn-black whatsapp-btn" data-nombre="Malbec Reserva Especial">Consultar Promo</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="promo-card row g-0 shadow-sm flex-md-row-reverse" data-aos="fade-up">
+                <div class="col-md-7 promo-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80" alt="Perfumes">
+                </div>
+                <div class="col-md-5 d-flex align-items-center">
+                    <div class="promo-content text-md-end">
+                        <span class="promo-badge">Luxury Scents</span>
+                        <h2 class="promo-title">Fragancias Importadas</h2>
+                        <p class="text-muted mb-4">20% OFF en la segunda unidad de perfumes seleccionados de las marcas Dior y Chanel.</p>
+                        <p class="promo-price">Ahorrá un <b>20%</b></p>
+                        <button class="btn btn-black whatsapp-btn" data-nombre="Promo Perfumes 20% OFF">Ver Fragancias</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div id="footer-container"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        AOS.init({ duration: 1200 });
+
+        // WhatsApp para promos manuales
+        const numeroWhatsApp = "5491141685220";
+        document.addEventListener("click", function(e) {
+            if (e.target.classList.contains("whatsapp-btn")) {
+                const nombre = e.target.dataset.nombre;
+                const mensaje = `Hola Diego! Me interesa la promo de la web: ${nombre}.`;
+                window.open(`https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`, "_blank");
+            }
+        });
+    </script>
+</body>
+</html>
