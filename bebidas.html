@@ -13,6 +13,50 @@
 
   <link rel="stylesheet" href="css/styles.css">
 </head>
+ 
+  <style>
+    .video-hero {
+    position: relative;
+    height:100vh; /* Altura del hero, puedes subirlo a 80vh si quieres más impacto */
+    overflow: hidden;
+    background-color: #000; /* Fondo de respaldo mientras carga el video */
+}
+
+.video-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Esto hace que el video ocupe todo el ancho/alto */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Oscurece el video para que el texto blanco resalte */
+    z-index: 1;
+}
+
+.video-hero .container {
+    z-index: 2; /* Pone el texto por encima del video y del overlay */
+}
+
+/* Ajuste para que el título se vea más elegante */
+.video-hero h1 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+  </style>
+
 
 <body>
 
@@ -20,13 +64,19 @@
   <div id="navbar-container"></div>
   
 
-  <!-- HERO SIMPLE -->
-  <section class="page-hero d-flex align-items-center">
-    <div class="container text-center">
-      <h1>Bebidas</h1>
-      <p>Selección premium de vinos y aperitivos</p>
-    </div>
-  </section>
+  <!-- HERO  -->
+
+<section class="video-hero d-flex align-items-center">
+  <div class="video-overlay"></div> <video autoplay muted loop playsinline class="video-bg">
+    <source src="./assets/img/bebidas/bebidas.mp4" type="video/mp4">
+    Tu navegador no soporta el formato de video.
+  </video>
+
+  <div class="container text-center text-white position-relative">
+    <h1 class="display-3 fw-bold">Bebidas</h1>
+    <p class="lead">Selección premium de vinos y aperitivos</p>
+  </div>
+</section>
 
   <!-- FILTROS -->
   <section class="py-5">

@@ -14,6 +14,17 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
+<style>
+  .img-full-width {
+    width: 100%;
+    height: auto; /* Mantiene la proporción */
+    display: block;
+    object-fit: cover;
+    /* Opcional: si quieres que tenga un tope de altura en PC para que no ocupe toda la pantalla */
+    max-height: 600px; 
+}
+</style>
+
 <body>
 
   <!-- NAVBAR -->
@@ -28,18 +39,20 @@
     </div>
   </section>
 
-  <!-- FILTROS -->
-  <section class="py-5">
-    <div class="container text-center">
+  <img src="./assets/img/perfumes/duracionFragancias.webp" class="img-full-width mb-4" alt="Guía de duración de perfumes">
 
+  <!-- FILTROS -->
+  <section>
+    <div class="container text-center">
+      
       <div class="filtros-wrapper mb-5">
         <div class="filtros">
-            <button class="filtro-btn active" data-filter="all">Todos</button>
-            <button class="filtro-btn" data-filter="cofre">Cofres</button>
-            <button class="filtro-btn" data-filter="femenina">Femeninas</button>
-            <button class="filtro-btn" data-filter="masculina">Masculinas</button>
-            <button class="filtro-btn" data-filter="tester">Tester</button>
-            <button class="filtro-btn" data-filter="otro">Otros</button>
+          <button class="filtro-btn active" data-filter="all">Todos</button>
+          <button class="filtro-btn" data-filter="cofre">Cofres</button>
+          <button class="filtro-btn" data-filter="femenina">Femeninas</button>
+          <button class="filtro-btn" data-filter="masculina">Masculinas</button>
+          <button class="filtro-btn" data-filter="tester">Tester</button>
+          <button class="filtro-btn" data-filter="otro">Otros</button>
         </div>
       </div>
 
