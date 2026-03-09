@@ -127,6 +127,19 @@ Ejecutar Batch Write
 
 <h2 class="mt-5">Productos cargados</h2>
 
+<div class="row mb-3 mt-4">
+    <div class="col-md-4">
+        <label class="form-label fw-bold">🔍 Filtrar por Colección:</label>
+        <select id="filtro-coleccion" class="form-select bg-white shadow-sm">
+            <option value="todas">Todas las colecciones</option>
+            <option value="bebidas">Bebidas</option>
+            <option value="perfumes">Perfumes</option>
+            <option value="belleza">Belleza</option>
+            <option value="promociones">Promociones</option>
+        </select>
+    </div>
+</div>
+
 <table class="table table-bordered table-striped bg-white">
 
 <thead class="table-dark">
@@ -145,6 +158,13 @@ Ejecutar Batch Write
 <tbody id="listaProductos"></tbody>
 
 </table>
+
+
+
+<nav>
+  <ul class="pagination justify-content-center" id="pagination-container">
+    </ul>
+</nav>
 
 </div>
 
