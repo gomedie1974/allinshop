@@ -14,6 +14,37 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
+
+<style>
+  /* Contenedor de botones */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;       /* Esto hace que los botones bajen si no entran */
+    justify-content: center;
+    gap: 10px;             /* Espacio entre botones */
+    padding: 10px;
+}
+
+/* Botones más cómodos para tocar en el celular */
+.filtro-btn {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 25px;   /* Estilo redondeado moderno */
+    white-space: nowrap;   /* Evita que el texto de un botón se parta en dos */
+    transition: all 0.3s ease;
+}
+
+/* Ajuste para la imagen hero y el texto en móvil */
+@media (max-width: 768px) {
+    .page-hero h1 {
+        font-size: 2rem;   /* Letra un poco más chica en móviles */
+    }
+    .img-full-width {
+        max-height: 300px; /* Reducimos el alto de la imagen en móviles para que no tape todo */
+    }
+}
+</style>
 <body>
 
   <!-- NAVBAR -->
