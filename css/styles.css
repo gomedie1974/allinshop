@@ -308,3 +308,13 @@ body {
 .map-container:hover iframe {
     filter: grayscale(0) invert(0) opacity(1) !important;
 }
+
+/* Esto fuerza al icono a ser blanco mediante un filtro */
+.custom-navbar .navbar-toggler-icon {
+    filter: invert(1) brightness(2);
+}
+
+/* cuadradito también blanco */
+.custom-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.8);
+}
