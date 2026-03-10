@@ -1,3 +1,28 @@
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+// (Asegúrate de que app esté inicializada o impórtala de tu firebase.js)
+
+const auth = getAuth();
+
+// VERIFICAR SI ESTÁ LOGUEADO
+onAuthStateChanged(auth, (user) => {
+    if (!user || user.uid !== "jOuvlCLKsebtVQwFcg9Urigsum93") {
+        // Si no es el admin dueño del UID, fuera.
+        alert("Acceso no autorizado");
+        window.location.href = "login.html";
+    } else {
+        console.log("Panel administrativo verificado.");
+    }
+});
+
+// BOTÓN CERRAR SESIÓN (Opcional pero recomendado)
+// Si agregas un botón con id="btn-logout" en tu HTML:
+document.getElementById("btn-logout")?.addEventListener("click", () => {
+    signOut(auth).then(() => {
+        window.location.href = "login.html";
+    });
+});
+
+
 import { db } from "./firebase.js";
 import {
     collection, doc, setDoc, getDocs, deleteDoc, updateDoc
@@ -12,7 +37,7 @@ const btnGuardar = form.querySelector("button[type='submit']");
 // --- ESTADO ---
 let todosLosProductos = []; 
 let paginaActual = 1;
-const productosPorPagina = 8; 
+const productosPorPagina = 8 
 let editandoID = null;
 
 // =============================
@@ -20,7 +45,7 @@ let editandoID = null;
 // =============================
 async function cargarProductos() {
     todosLosProductos = [];
-    const colecciones = ["bebidas", "perfumes", "belleza", "promociones"];
+    const colecciones = ["bebidas", "perfumes", "belleza", "tienda"];
 
     for (const col of colecciones) {
         const querySnapshot = await getDocs(collection(db, col));

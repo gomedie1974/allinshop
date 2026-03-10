@@ -6,10 +6,10 @@ if (footerContainer) {
       <div class="container">
         <div class="row gy-4">
           
-          <div class="col-md-4 text-center text-md-start">
-            <h2 class="footer-logo">ALL IN <span>SHOP</span></h2>
-            <p class="mt-3">Selección exclusiva de bebidas premium y fragancias importadas.</p>
-          </div>
+        <div class="col-md-4 text-center text-md-start">
+            <h4 class="footer-logo">ALL IN <span>SHOP</span></h4>
+            <p class="mt-3">Calidad sin concesiones. Lo mejor del mundo en bebidas, fragancias y estilo, seleccionado exclusivamente para vos.</p>
+        </div> 
 
           <div class="col-md-4 text-center">
             <h5>Contacto</h5>
