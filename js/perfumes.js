@@ -79,7 +79,7 @@ function renderizarTarjeta(perfumes) {
     container.innerHTML += `
       <div class="col-md-4 perfumes-item">
         <div class="product-card">
-          <img src="${perfumes.imagen}" class="img-fluid">
+          <img src="${perfumes.imagen}" class="img-fluid img-zoomable" data-src="${perfumes.imagen}">
           <div class="product-info">
             <h4>${perfumes.nombre}</h4>
             <h6>${perfumes.descripcion || ""}</h6>
@@ -128,7 +128,22 @@ document.addEventListener("click", function(e) {
         window.open(url, "_blank");
     }
 });
+// Lógica de Zoom para Perfumes
+const zoomModal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
+const modalImg = document.getElementById('modalZoomImage');
 
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("img-zoomable")) {
+        const rutaImagen = e.target.getAttribute("data-src");
+        modalImg.src = rutaImagen;
+        zoomModal.show();
+    }
+});
+
+// Cerrar al cliquear la propia imagen ampliada
+modalImg.addEventListener('click', () => {
+    zoomModal.hide();
+});
 // Inicio
 cargarPerfumes();
 

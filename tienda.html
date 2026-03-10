@@ -11,6 +11,42 @@
     .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     .product-card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
     .price { color: #d4af37; font-weight: 700; font-size: 1.2rem; }
+    /* Estilos para el Zoom */
+    .img-zoomable { 
+        cursor: zoom-in; 
+        transition: 0.3s; 
+    }
+    .img-zoomable:hover { 
+        filter: brightness(0.9); 
+    }
+
+    .btn-zoom-out-custom {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(0, 0, 0, 0.6);
+        color: #fff;
+        border: 1.5px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .btn-zoom-out-custom i { font-size: 1.6rem; }
+
+    #modalZoomImage {
+        cursor: zoom-out;
+        display: block;
+        margin: 0 auto;
+        max-height: 90vh;
+    }    
+
   </style>
 </head>
 
@@ -45,5 +81,16 @@
   <script src="./js/footer.js"></script>
   <script src="js/main.js"></script>
   <script type="module" src="js/tienda.js"></script>
+
+  <div class="modal fade" id="imageZoomModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-md">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body p-0 position-relative">
+        <img src="" id="modalZoomImage" class="img-fluid rounded shadow-lg" alt="Zoom">
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

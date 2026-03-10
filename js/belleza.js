@@ -79,7 +79,7 @@ function renderizarTarjeta(belleza) {
     container.innerHTML += `
       <div class="col-md-4 belleza-item">
         <div class="product-card">
-          <img src="${belleza.imagen}" class="img-fluid">
+          <img src="${belleza.imagen}" class="img-fluid img-zoomable" data-src="${belleza.imagen}">
           <div class="product-info">
             <h4>${belleza.nombre}</h4>
             <h6>${belleza.descripcion || ""}</h6>
@@ -129,5 +129,21 @@ document.addEventListener("click", function(e) {
     }
 });
 
+// ===== LÓGICA DE ZOOM PARA BELLEZA =====
+const zoomModal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
+const modalImg = document.getElementById('modalZoomImage');
+
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("img-zoomable")) {
+        const ruta = e.target.getAttribute("data-src");
+        modalImg.src = ruta;
+        zoomModal.show();
+    }
+});
+
+// Cerrar al cliquear la imagen ampliada
+modalImg.addEventListener('click', () => {
+    zoomModal.hide();
+});
 // Inicio
 cargarBelleza();

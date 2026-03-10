@@ -79,7 +79,7 @@ function renderizarTarjeta(bebida) {
     container.innerHTML += `
       <div class="col-md-4 bebida-item">
         <div class="product-card">
-          <img src="${bebida.imagen}" class="img-fluid">
+          <img src="${bebida.imagen}" class="img-fluid img-zoomable" data-src="${bebida.imagen}" alt="${bebida.nombre}">
           <div class="product-info">
             <h4>${bebida.nombre}</h4>
             <h6>${bebida.descripcion || ""}</h6>
@@ -129,5 +129,21 @@ document.addEventListener("click", function(e) {
     }
 });
 
+// ===== LÓGICA DE ZOOM =====
+const zoomModal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
+const modalImg = document.getElementById('modalZoomImage');
+
+document.addEventListener("click", function(e) {
+    // Verificamos si lo que se clickeó es una imagen de producto
+    if (e.target.classList.contains("img-zoomable")) {
+        const rutaImagen = e.target.getAttribute("data-src");
+        modalImg.src = rutaImagen; // Pasamos la ruta al modal
+        zoomModal.show(); // Mostramos el modal
+    }
+});
+// Cerrar el modal al hacer clic directamente sobre la imagen ampliada
+document.getElementById('modalZoomImage').addEventListener('click', () => {
+    zoomModal.hide();
+});
 // Inicio
 cargarBebidas();

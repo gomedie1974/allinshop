@@ -318,3 +318,55 @@ body {
 .custom-navbar .navbar-toggler {
     border-color: rgba(255, 255, 255, 0.8);
 }
+
+/* zoom bebidas */
+.product-card img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.product-card img:hover {
+    filter: brightness(0.9);
+}
+
+/* Ajuste para que el modal se vea bien */
+#imageZoomModal .modal-content {
+    background: none;
+}
+/* Botón circular con la lupa de menos */
+.btn-zoom-out-custom {
+    position: absolute;
+    top: 10px;      /* Lo metemos un poco dentro de la imagen */
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1060;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px); /* Efecto vidriado moderno */
+}
+
+.btn-zoom-out-custom i {
+    font-size: 1.5rem; /* Tamaño del icono */
+}
+
+.btn-zoom-out-custom:hover {
+    background: #000;
+    transform: scale(1.1);
+    color: #c19a5b; /* Cambia a dorado al pasar el mouse */
+}
+
+/* Efecto para que la imagen también cierre al hacerle clic directamente */
+#modalZoomImage {
+    cursor: zoom-out;
+    max-height: 90vh;
+    display: block;
+    margin: auto;
+}

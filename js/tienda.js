@@ -47,40 +47,22 @@ const fin = inicio + PAGE_SIZE;
 
 const productosPagina = productos.slice(inicio,fin);
 
-productosPagina.forEach(p=>{
-
-container.innerHTML+=`
-<div class="col-md-4">
-
-<div class="product-card">
-
-<img src="${p.imagen}" class="img-fluid">
-
-<div class="product-info">
-
-<h4>${p.nombre}</h4>
-
-<h6>${p.descripcion || ""}</h6>
-
-<p class="price">$${Number(p.precio).toLocaleString()}</p>
-
-${
-p.stock===0
-?
-`<button class="btn btn-secondary" disabled>Sin stock</button>`
-:
-`<button class="btn btn-gold whatsapp-btn"
-data-nombre="${p.nombre}"
-data-precio="${p.precio}">
-Consultar
-</button>`
-}
-
-</div>
-</div>
-</div>
-`;
-
+productosPagina.forEach(p => {
+    container.innerHTML += `
+    <div class="col-md-4">
+        <div class="product-card">
+            <img src="${p.imagen}" class="img-fluid img-zoomable" data-src="${p.imagen}">
+            <div class="product-info">
+                <h4>${p.nombre}</h4>
+                <h6>${p.descripcion || ""}</h6>
+                <p class="price">$${Number(p.precio).toLocaleString()}</p>
+                ${p.stock === 0
+                    ? `<button class="btn btn-secondary" disabled>Sin stock</button>`
+                    : `<button class="btn btn-gold whatsapp-btn" data-nombre="${p.nombre}" data-precio="${p.precio}">Consultar</button>`
+                }
+            </div>
+        </div>
+    </div>`;
 });
 
 actualizarBotones();
@@ -159,6 +141,24 @@ window.open(url,"_blank");
 document.addEventListener("DOMContentLoaded",()=>{
 
 btnPrev.style.display="none";
+
+// Lógica de Zoom
+const zoomModal = new bootstrap.Modal(document.getElementById('imageZoomModal'));
+const modalImg = document.getElementById('modalZoomImage');
+
+document.addEventListener("click", function(e) {
+    if (e.target.classList.contains("img-zoomable")) {
+        const ruta = e.target.getAttribute("data-src");
+        modalImg.src = ruta;
+        zoomModal.show();
+    }
+});
+
+// Cerrar al cliquear la imagen
+modalImg.addEventListener('click', () => {
+    zoomModal.hide();
+});
+
 
 cargarTienda();
 
