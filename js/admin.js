@@ -74,19 +74,21 @@ function renderizarTabla() {
     const visibles = productosFiltrados.slice(inicio, fin);
 
     visibles.forEach((prod) => {
-        tabla.innerHTML += `
-        <tr>
-            <td><img src="${prod.imagen}" width="40" class="rounded" onerror="this.src='https://via.placeholder.com/40'"></td>
-            <td>${prod.nombre}</td>
-            <td>$${prod.precio}</td>
-            <td>${prod.stock}</td>
-            <td><span class="badge bg-secondary">${prod.col}</span></td>
-            <td>
-                <button class="btn btn-warning btn-sm editar" data-id="${prod.id}" data-col="${prod.col}">✏️</button>
-                <button class="btn btn-danger btn-sm borrar" data-id="${prod.id}" data-col="${prod.col}">🗑️</button>
-            </td>
-        </tr>`;
-    });
+    tabla.innerHTML += `
+    <tr>
+        <td><img src="${prod.imagen}" width="40" class="rounded" onerror="this.src='https://via.placeholder.com/40'"></td>
+        <td>
+            <strong>${prod.nombre}</strong><br>
+            <small class="text-muted">${prod.bodega || '-'}</small> </td>
+        <td>$${prod.precio}</td>
+        <td>${prod.stock}</td>
+        <td><span class="badge bg-secondary">${prod.col}</span></td>
+        <td>
+            <button class="btn btn-warning btn-sm editar" data-id="${prod.id}" data-col="${prod.col}">✏️</button>
+            <button class="btn btn-danger btn-sm borrar" data-id="${prod.id}" data-col="${prod.col}">🗑️</button>
+        </td>
+    </tr>`;
+});
 
     renderizarPaginacion(productosFiltrados.length);
 }
@@ -132,6 +134,7 @@ form.addEventListener("submit", async (e) => {
     const id = document.getElementById("prod-id").value;
     const producto = {
         nombre: document.getElementById("prod-nombre").value,
+        bodega: document.getElementById("prod-bodega") ? document.getElementById("prod-bodega").value : "", // NUEVO
         descripcion: document.getElementById("prod-descripcion").value,
         imagen: document.getElementById("prod-img").value,
         precio: Number(document.getElementById("prod-precio").value),
@@ -179,6 +182,9 @@ document.addEventListener("click", async (e) => {
             document.getElementById("prod-cat").value = p.categoria;
             document.getElementById("prod-orden").value = p.orden;
             document.getElementById("prod-destacado").checked = p.destacado;
+            if(document.getElementById("prod-bodega")) {
+            document.getElementById("prod-bodega").value = p.bodega || "";
+            }
             colSelect.value = p.col;
             editandoID = p.id;
             btnGuardar.innerText = "Actualizar Cambios";

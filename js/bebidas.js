@@ -82,17 +82,19 @@ function renderizarTarjeta(bebida) {
           <img src="${bebida.imagen}" class="img-fluid img-zoomable" data-src="${bebida.imagen}" alt="${bebida.nombre}">
           <div class="product-info">
             <h4>${bebida.nombre}</h4>
+            
+            ${bebida.bodega ? `<p class="bodega-text">${bebida.bodega}</p>` : ''}
+            
             <h6>${bebida.descripcion || ""}</h6>
             <p class="price">$${Number(bebida.precio).toLocaleString()}</p>
             ${bebida.stock === 0 
                 ? `<p class="sin-stock">Sin stock</p><button class="btn btn-secondary" disabled>No disponible</button>`
-                : `<button class="btn btn-gold whatsapp-btn" data-nombre="${bebida.nombre}" data-precio="${bebida.precio}">Consultar</button>`
+                : `<button class="btn btn-gold whatsapp-btn" data-nombre="${bebida.nombre}" data-bodega="${bebida.bodega || ''}" data-precio="${bebida.precio}">Consultar</button>`
             }
           </div>
         </div>
       </div>`;
 }
-
 // ===== EVENTOS DE NAVEGACIÓN =====
 btnNext.addEventListener("click", () => {
     paginaActual++;
@@ -123,7 +125,7 @@ document.addEventListener("click", function(e) {
     if (e.target.classList.contains("whatsapp-btn")) {
         const nombre = e.target.dataset.nombre;
         const precio = e.target.dataset.precio;
-        const mensaje = `Hola Diego, quiero consultar por:\n\nProducto: ${nombre}\nPrecio: $${Number(precio).toLocaleString()}\n\n¿Está disponible?`;
+        const mensaje = `Hola Diego, quiero consultar por:\n\nProducto: ${nombre}\nBodega: ${e.target.dataset.bodega}\nPrecio: $${Number(precio).toLocaleString()}\n\n¿Está disponible?`;
         const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
         window.open(url, "_blank");
     }
