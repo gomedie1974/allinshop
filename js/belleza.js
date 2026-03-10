@@ -86,7 +86,7 @@ function renderizarTarjeta(belleza) {
             <p class="price">$${Number(belleza.precio).toLocaleString()}</p>
             ${belleza.stock === 0 
                 ? `<p class="sin-stock">Sin stock</p><button class="btn btn-secondary" disabled>No disponible</button>`
-                : `<button class="btn btn-gold whatsapp-btn" data-nombre="${belleza.nombre}" data-precio="${belleza.precio}">Consultar</button>`
+                : `<button class="btn btn-gold whatsapp-btn" data-nombre="${belleza.nombre}" data-precio="${belleza.precio}">Consultar <i class="bi bi-whatsapp"></i></button>`
             }
           </div>
         </div>
