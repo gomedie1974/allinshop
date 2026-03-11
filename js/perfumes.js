@@ -10,7 +10,7 @@ const filtros = document.querySelectorAll(".filtro-btn");
 let lastVisible = null;   // Último doc de la página actual
 let firstVisible = null;  // Primer doc de la página actual
 let paginaActual = 1;
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 8;
 let categoriaActual = "all";
 
 // Botones (Asegúrate de tener estos IDs en tu HTML)
@@ -77,7 +77,7 @@ async function cargarPerfumes(categoria = "all", direccion = "inicio") {
 
 function renderizarTarjeta(perfumes) {
     container.innerHTML += `
-      <div class="col-md-4 perfumes-item">
+      <div class="col-md-3 perfumes-item">
         <div class="product-card">
           <img src="${perfumes.imagen}" class="img-fluid img-zoomable" data-src="${perfumes.imagen}">
           <div class="product-info">
