@@ -20,7 +20,7 @@ if (footerContainer) {
                 </a>
               </li>
               <li><i class="bi bi-geo-alt"></i> Buenos Aires, Argentina</li>
-              <li><p class="mt-3 small">Atención Online: Lun a Sáb 10 a 13hs</p></li>
+              <li><span class="mt-3 small">Atención Online: Lun a Sáb 10 a 13hs</span></li>
             </ul>
           </div>
 

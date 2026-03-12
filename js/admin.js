@@ -45,7 +45,7 @@ let editandoID = null;
 // =============================
 async function cargarProductos() {
     todosLosProductos = [];
-    const colecciones = ["bebidas", "perfumes", "belleza", "tienda"];
+    const colecciones = ["bebidas", "perfumes", "belleza", "promociones"];
 
     for (const col of colecciones) {
         const querySnapshot = await getDocs(collection(db, col));

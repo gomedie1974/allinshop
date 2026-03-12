@@ -111,7 +111,7 @@ function renderizarTarjeta(bebida) {
             <p class="price">$${Number(bebida.precio).toLocaleString()}</p>
             ${bebida.stock === 0 
                 ? `<button class="btn btn-secondary w-100" disabled>Sin Stock</button>`
-                : `<button class="btn btn-gold whatsapp-btn w-50" 
+                : `<button class="btn btn-gold whatsapp-btn " 
                     data-nombre="${bebida.nombre}" 
                     data-bodega="${bebida.bodega || ''}" 
                     data-precio="${bebida.precio}">
