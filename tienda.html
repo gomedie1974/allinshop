@@ -35,6 +35,60 @@
     .img-zoomable { cursor: zoom-in; transition: 0.3s; }
     .img-zoomable:hover { filter: brightness(0.9); }
     #modalZoomImage { cursor: zoom-out; display: block; margin: 0 auto; max-height: 90vh; }
+  /* Contenedor principal de filtros */
+.filtros-wrapper {
+    overflow-x: auto; /* Permite scroll lateral si no entran */
+    white-space: nowrap;
+    padding: 10px 0;
+    -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
+}
+
+.filtros {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap; /* En PC se envuelven, en móvil se ajustan */
+}
+
+/* Estilo de los botones de filtro */
+.filtro-btn {
+    padding: 8px 20px;
+    border: 2px solid #d4af37; /* Color oro como tu precio */
+    background: transparent;
+    color: #333;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.filtro-btn.active, .filtro-btn:hover {
+    background: #d4af37;
+    color: white;
+}
+
+/* Ajuste para móviles: Scroll lateral suave */
+@media (max-width: 768px) {
+    .filtros-wrapper {
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        /* Oculta la barra de scroll visualmente pero permite el movimiento */
+        scrollbar-width: none; 
+    }
+    .filtros-wrapper::-webkit-scrollbar {
+        display: none;
+    }
+    .filtros {
+        justify-content: flex-start; /* Alinea al inicio */
+        flex-wrap: nowrap; /* Fuerza una sola línea */
+        gap: 8px;
+    }
+    .filtro-btn {
+        font-size: 0.85rem; /* Un poco más chicos para que entren más */
+        padding: 6px 15px;
+    }
+}    
 </style>
 
 <body>
@@ -48,17 +102,38 @@
   </section>
    
  
-<div class="container mt-4 text-center">
-    <div class="filtros-wrapper">
-        <div class="filtros">
-            <button type="button" class="filtro-btn active" data-categoria="todos">Todos</button>
-            <button type="button" class="filtro-btn" data-categoria="hogar">Hogar</button>
-            <button type="button" class="filtro-btn" data-categoria="indumentaria">Indumentaria</button>
-            <button type="button" class="filtro-btn" data-categoria="luncheras">Luncheras</button>
+    <div class="container mt-4">
+        <div class="filtros-wrapper d-none d-md-block">
+            <div class="filtros">
+                <button type="button" class="filtro-btn active" data-categoria="todos">Todos</button>
+                <button type="button" class="filtro-btn" data-categoria="hogar">Hogar</button>
+                <button type="button" class="filtro-btn" data-categoria="indumentaria">Indumentaria</button>
+                <button type="button" class="filtro-btn" data-categoria="luncheras">Luncheras</button>
+            </div>
+        </div>
+
+        <div class="d-md-none text-start mb-3">
+            <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros">
+                <i class="bi bi-filter-left"></i> Filtrar Categorías
+            </button>
         </div>
     </div>
-</div>
- 
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFiltros">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Categorías</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-light text-start filtro-btn active" data-categoria="todos" data-bs-dismiss="offcanvas">Todos</button>
+            <button type="button" class="btn btn-light text-start filtro-btn" data-categoria="hogar" data-bs-dismiss="offcanvas">Hogar</button>
+            <button type="button" class="btn btn-light text-start filtro-btn" data-categoria="indumentaria" data-bs-dismiss="offcanvas">Indumentaria</button>
+            <button type="button" class="btn btn-light text-start filtro-btn" data-categoria="luncheras" data-bs-dismiss="offcanvas">Luncheras</button>
+        </div>
+      </div>
+    </div> 
+
   <section class="py-5">
     <div class="container text-center">
       <div class="row g-4" id="tienda-container"></div> 
