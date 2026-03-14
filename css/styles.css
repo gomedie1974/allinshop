@@ -45,11 +45,22 @@ body {
 /* ===== HERO BOUTIQUE PRODUCTO ===== */
 
 .hero {
-    min-height: 100vh;
+    padding: 120px 0; /* Ajusta este valor según necesites */
+    min-height: auto; /* Evita que obligue a ocupar toda la pantalla si hay poco contenido */
     display: flex;
     align-items: center;
-    background-color: #f8f6f2;
-    padding-top: 100px;
+}
+
+/* Corrección específica para tablets y móviles */
+@media (max-width: 991px) {
+    .hero {
+        padding: 120px 0; /* Reduce el espacio arriba y abajo en iPad/Móvil */
+    }
+    
+    .hero-text {
+        text-align: center; /* Opcional: centra el texto si se ve mejor */
+        margin-bottom: 30px;
+    }
 }
 
 .hero-text h1 {
