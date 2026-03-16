@@ -84,12 +84,42 @@
 
     .price { color: #d4af37; font-weight: 700; font-size: 1.2rem; }
 
-    .product-info {
+/* Fuerza a que todas las columnas del row tengan la misma altura */
+#perfumes-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Estilo para la Card */
+.product-card {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centra horizontalmente */
-    text-align: center;  /* Centra el texto de los h4, h6 y p */
+    height: 100%; /* Ocupa todo el alto de la columna */
+    border: 1px solid #eee; /* Opcional: para definir el borde */
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+/* Ajuste de la imagen */
+.product-card img {
+    width: 100%;
+    height: 250px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Recorta la imagen para que llene el espacio sin deformarse */
+}
+
+/* Contenedor de información */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Hace que este contenedor crezca para llenar el espacio sobrante */
     padding: 15px;
+    text-align: center;
+}
+
+/* Empuja el botón hacia abajo */
+.product-info .btn {
+    margin-top: auto; /* Truco clave: empuja el botón al final de la card */
+    align-self: center;
 }
 
   .product-info .btn {

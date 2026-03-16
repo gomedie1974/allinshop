@@ -75,19 +75,33 @@ async function cargarBelleza(categoria = "all", direccion = "inicio") {
     }
 }
 
-function renderizarTarjeta(belleza) {
+function renderizarTarjeta(bebida) {
+    // Agregamos 'd-flex' a la columna para que la card interna pueda estirarse al 100%
     container.innerHTML += `
-      <div class="col-md-4 belleza-item">
-        <div class="product-card">
-          <img src="${belleza.imagen}" class="img-fluid img-zoomable" data-src="${belleza.imagen}">
-          <div class="product-info">
-            <h4>${belleza.nombre}</h4>
-            <h6>${belleza.descripcion || ""}</h6>
-            <p class="price">$${Number(belleza.precio).toLocaleString()}</p>
-            ${belleza.stock === 0 
-                ? `<p class="sin-stock">Sin stock</p><button class="btn btn-secondary" disabled>No disponible</button>`
-                : `<button class="btn btn-gold whatsapp-btn" data-nombre="${belleza.nombre}" data-precio="${belleza.precio}">Consultar <i class="bi bi-whatsapp"></i></button>`
-            }
+      <div class="col-md-4 col-sm-6 d-flex mb-4">
+        <div class="product-card w-100 shadow-sm border-0 rounded-3">
+          <img src="${bebida.imagen}" class="img-fluid img-zoomable" data-src="${bebida.imagen}" alt="${bebida.nombre}">
+          <div class="product-info text-center">
+            <h4 class="fw-bold">${bebida.nombre}</h4>
+            
+            <div class="mb-2">
+                ${bebida.bodega ? `<p class="bodega-text mb-1">${bebida.bodega}</p>` : ''}
+                <h6 class="text-muted small">${bebida.descripcion || ""}</h6>
+            </div>
+
+            <p class="price mt-2 mb-3">$${Number(bebida.precio).toLocaleString()}</p>
+            
+            <div class="mt-auto w-100">
+              ${bebida.stock === 0 
+                  ? `<button class="btn btn-secondary w-100" disabled>Sin Stock</button>`
+                  : `<button class="btn btn-gold whatsapp-btn w-100" 
+                      data-nombre="${bebida.nombre}" 
+                      data-bodega="${bebida.bodega || ''}" 
+                      data-precio="${bebida.precio}">
+                      Consultar <i class="bi bi-whatsapp"></i>
+                     </button>`
+              }
+            </div>
           </div>
         </div>
       </div>`;

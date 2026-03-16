@@ -105,6 +105,56 @@
         .video-hero { height: 70vh; }
         .video-hero h1 { font-size: 2.5rem; }
     }
+    /* Contenedor principal para asegurar que las columnas respeten el flex */
+#bebidas-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* La Card debe ser un contenedor flex vertical de altura completa */
+.product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+/* Controlar el tamaño de la imagen del producto */
+.product-card img {
+    width: 100%;
+    height: 280px; /* Altura fija sugerida para botellas */
+    object-fit: contain; /* 'contain' es mejor para botellas para que no se corten */
+    padding: 15px;
+    background-color: #fff;
+}
+
+/* El cuerpo de información se expande para empujar el botón */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Esto hace que el área de texto ocupe el espacio disponible */
+    padding: 1.5rem;
+}
+
+/* El contenedor del botón se va siempre al fondo */
+.product-info .whatsapp-btn, 
+.product-info .btn-secondary {
+    margin-top: auto; 
+    width: 100%;
+}
+
+/* Ajuste para los textos para evitar desbordes */
+.product-info h4 {
+    /* Forzamos una altura fija exacta para 2 líneas */
+    height: 2.8em; 
+    line-height: 1.4em;
+    overflow: hidden;
+    margin-bottom: 10px;
+    display: block; /* O flex */
+    text-overflow: ellipsis; /* Pone los puntos suspensivos si el texto es una sola línea larga */
+}
   </style>
 </head>
 
