@@ -36,8 +36,9 @@
         height: auto;
         display: block;
         object-fit: cover;
-        max-height: 600px; 
+        max-height: 600px;  
     }
+
 
     /* --- ESTILOS DE FILTROS (Copiado de Tienda) --- */
     .filtros-wrapper {
@@ -82,6 +83,21 @@
     #modalZoomImage { cursor: zoom-out; display: block; margin: 0 auto; max-height: 90vh; }
 
     .price { color: #d4af37; font-weight: 700; font-size: 1.2rem; }
+
+    .product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra horizontalmente */
+    text-align: center;  /* Centra el texto de los h4, h6 y p */
+    padding: 15px;
+}
+
+  .product-info .btn {
+      margin: 0 auto;      /* Asegura que el botón no se estire de más */
+      display: inline-block; 
+      width: fit-content;  /* El botón solo ocupará el ancho de su texto */
+      min-width: 150px;    /* Opcional: para que todos los botones tengan un tamaño base */
+}
   </style>
 </head>
 
