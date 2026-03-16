@@ -15,7 +15,30 @@
   <link rel="stylesheet" href="css/styles.css">
 
   <style>
-    /* FIX: Evita que el Navbar tape el título (Estilo Tienda) */
+    /* Efecto para el banner de consultas */
+.banner-consulta {
+    transition: all 0.4s ease;
+    cursor: default;
+}
+
+.banner-consulta:hover {
+    background-color: #fff9e6 !important; /* Un dorado muy suave */
+    border-style: solid !important;      /* Cambia de punteado a sólido */
+    transform: translateY(-5px);         /* Se eleva un poquito */
+}
+
+/* Animación opcional para el icono de WhatsApp dentro del botón */
+.btn-whatsapp-anim:hover i {
+    animation: shake 0.5s infinite;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(0eg); }
+    75% { transform: rotate(-10deg); }
+    100% { transform: rotate(0deg); }
+}
     .page-hero {
         padding-top: 150px; 
         padding-bottom: 60px;
@@ -187,6 +210,20 @@
       </div>
     </div>
   </div> 
+
+    <section class="container my-5">
+        <div class="p-4 p-md-5 text-center rounded-4 shadow-sm banner-consulta" style="background-color: #fdfbf7; border: 2px dashed #d4af37;">
+            <h2 class="fw-bold" style="font-family: 'Playfair Display', serif;">¿No encontrás tu fragancia favorita?</h2>
+            <p class="lead mb-4">Contamos con un stock exclusivo de más de 100 perfumes que no están en la web.</p>
+            
+            <a href="https://wa.me/5491141685220?text=Hola!%20Vi%20la%20página%20y%20querría%20consultar%20por%20una%20fragancia%20que%20no%20encontré%20en%20el%20catálogo" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="btn btn-dark btn-lg px-4 rounded-pill btn-whatsapp-anim">
+                <i class="bi bi-whatsapp me-2"></i> Consultar stock
+            </a>
+        </div>
+    </section>  
 
   <div id="footer-container"></div>
 
