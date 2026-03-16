@@ -20,6 +20,10 @@ if (footerContainer) {
                 </a>
               </li>
               <li><i class="bi bi-geo-alt"></i> Buenos Aires, Argentina</li>
+              <li>
+                <a href="https://www.instagram.com/allinshopweb/" target="_blank" class="footer-link">
+                  <i class="bi bi-instagram"></i> allinshopweb</li>
+                </a>
               <li><span class="mt-3 small">Atención Online: Lun a Sáb 10 a 13hs</span></li>
             </ul>
           </div>
